@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Student Away Guide PH</title>
+  <style>
+    :root{
+      --bg:#f3f7f6;
+      --surface:#ffffff;
+      --surface-2:#eef7f5;
+      --text:#18312f;
+      --muted:#617572;
+      --primary:#0f766e;
+      --primary-2:#14b8a6;
+      --accent:#f59e0b;
+      --danger:#dc2626;
+      --warning:#b45309;
+      --success:#15803d;
+      --border:#d9e7e4;
+      --shadow:0 12px 32px rgba(15,118,110,.10);
+      --radius:20px;
+      --focus:0 0 0 4px rgba(20,184,166,.22);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1514;
+      --surface:#12201f;
+      --surface-2:#172a28;
+      --text:#e8f6f3;
+      --muted:#a4b8b5;
+      --primary:#2dd4bf;
+      --primary-2:#5eead4;
+      --accent:#fbbf24;
+      --danger:#fb7185;
+      --warning:#fbbf24;
+      --success:#4ade80;
+      --border:#28403d;
+      --shadow:0 14px 36px rgba(0,0,0,.28);
+      --focus:0 0 0 4px rgba(45,212,191,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(20,184,166,.12), transparent 30%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{
+      outline:none; box-shadow:var(--focus);
+    }
+    .marquee-wrap{
+      position:sticky; top:0; z-index:90;
+      overflow:hidden;
+      background:linear-gradient(90deg,#0f766e,#115e59);
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .marquee{
+      display:flex;
+      width:max-content;
+      min-width:100%;
+      white-space:nowrap;
+      animation:marquee 28s linear infinite;
+      padding:.62rem 0;
+      font-size:.88rem;
+      font-weight:750;
+      letter-spacing:.02em;
+    }
+    .marquee span{padding-right:5rem}
+    @keyframes marquee{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
+    @media (prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .marquee{animation:none;white-space:normal;width:100%;justify-content:center;text-align:center;padding:.6rem 1rem}
+    }
+    .app-shell{max-width:1120px;margin:0 auto;padding:0 18px 48px}
+    header.hero{
+      padding:30px 0 20px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:start;
+    }
+    .brand-row{display:flex;gap:14px;align-items:center}
+    .logo{
+      width:58px;height:58px;border-radius:18px;
+      display:grid;place-items:center;
+      color:#fff;font-size:1.9rem;
+      background:linear-gradient(145deg,var(--primary),var(--primary-2));
+      box-shadow:var(--shadow);
+    }
+    h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.08;margin:0}
+    .subtitle{margin:.5rem 0 0;color:var(--muted);max-width:720px}
+    .header-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .icon-btn,.btn{
+      border:1px solid var(--border);
+      color:var(--text);
+      background:var(--surface);
+      border-radius:13px;
+      padding:.7rem .9rem;
+      font-weight:760;
+      box-shadow:0 4px 16px rgba(0,0,0,.04);
+    }
+    .icon-btn:hover,.btn:hover{transform:translateY(-1px);border-color:var(--primary)}
+    .btn.primary{background:var(--primary);color:#fff;border-color:transparent}
+    .btn.soft{background:var(--surface-2);color:var(--primary)}
+    .btn.danger{color:var(--danger)}
+    .btn.small{padding:.42rem .65rem;font-size:.84rem;border-radius:10px}
+    .dashboard{
+      display:grid;grid-template-columns:1.4fr .8fr;
+      gap:16px;margin:4px 0 20px;
+    }
+    .panel{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .panel-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .panel-title h2,.panel-title h3{margin:0;font-size:1.02rem}
+    .progress-track{height:12px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}
+    .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .3s ease}
+    .progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.86rem;margin-top:8px}
+    .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .quick{
+      border:1px solid var(--border);background:var(--surface-2);color:var(--text);
+      border-radius:14px;padding:10px;text-align:left;font-weight:750;
+    }
+    .quick span{display:block;font-size:.75rem;color:var(--muted);font-weight:600}
+    .emergency-call{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin-top:12px;padding:12px 14px;border-radius:14px;
+      background:rgba(220,38,38,.09);border:1px solid rgba(220,38,38,.28);
+    }
+    .emergency-call strong{color:var(--danger)}
+    .controls{
+      display:grid;grid-template-columns:minmax(0,1fr) auto;
+      gap:12px;align-items:center;margin:18px 0 14px;
+    }
+    .search-wrap{position:relative}
+    .search-wrap input{
+      width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);
+      padding:.85rem 1rem .85rem 2.75rem;border-radius:15px;
+    }
+    .search-wrap .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--muted)}
+    .control-buttons{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .hint{
+      display:flex;gap:9px;align-items:flex-start;
+      color:var(--muted);font-size:.84rem;margin:0 0 14px;
+    }
+    .topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .topic-card{
+      position:relative;display:grid;grid-template-columns:auto 1fr auto;
+      gap:13px;align-items:center;
+      border:1px solid var(--border);background:var(--surface);
+      border-radius:18px;padding:15px;
+      box-shadow:0 8px 24px rgba(0,0,0,.045);
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+      user-select:none;
+    }
+    .topic-card:hover{transform:translateY(-2px);border-color:var(--primary);box-shadow:var(--shadow)}
+    .topic-card.dragging{opacity:.45;border-style:dashed}
+    .topic-card.drag-over{border:2px dashed var(--primary)}
+    .topic-card[data-critical="true"]::before{
+      content:"PRIORITY";position:absolute;top:-8px;left:14px;
+      padding:2px 8px;border-radius:999px;background:var(--danger);color:#fff;
+      font-size:.62rem;font-weight:900;letter-spacing:.08em;
+    }
+    .card-icon{
+      width:49px;height:49px;display:grid;place-items:center;
+      border-radius:15px;background:var(--surface-2);font-size:1.55rem;
+    }
+    .card-main{min-width:0}
+    .card-main h3{margin:0 0 3px;font-size:1rem}
+    .card-main p{margin:0;color:var(--muted);font-size:.84rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .card-meta{display:flex;gap:7px;align-items:center;margin-top:8px;flex-wrap:wrap}
+    .badge{padding:2px 8px;border:1px solid var(--border);border-radius:999px;font-size:.7rem;color:var(--muted);background:var(--surface-2)}
+    .review-check{display:flex;align-items:center;gap:5px;font-size:.76rem;color:var(--muted)}
+    .review-check input,.check-item input,.export-check input{accent-color:var(--primary);width:17px;height:17px}
+    .card-actions{display:flex;flex-direction:column;gap:6px}
+    .move-btn,.open-btn{
+      border:1px solid var(--border);background:var(--surface-2);color:var(--text);
+      border-radius:10px;padding:.38rem .48rem;line-height:1;
+    }
+    .open-btn{font-size:1.12rem;padding:.6rem}
+    .move-btn[disabled]{opacity:.3;cursor:not-allowed}
+    .empty-state{text-align:center;padding:35px;color:var(--muted);display:none}
+    .footer{
+      margin-top:30px;padding:24px 0 8px;text-align:center;color:var(--muted);font-size:.84rem;
+      border-top:1px solid var(--border);
+    }
+
+    /* Full-page topic view */
+    .page-view{
+      position:fixed;inset:0;z-index:120;background:var(--bg);
+      overflow:auto;display:none;
+    }
+    .page-view.open{display:block}
+    .page-top{
+      position:sticky;top:0;z-index:2;background:rgba(243,247,246,.92);
+      backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
+    }
+    [data-theme="dark"] .page-top{background:rgba(11,21,20,.92)}
+    .page-top-inner{
+      max-width:920px;margin:0 auto;padding:12px 16px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .page-body{max-width:920px;margin:0 auto;padding:25px 16px 70px}
+    .topic-heading{
+      display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-bottom:18px;
+    }
+    .topic-heading .big-icon{width:64px;height:64px;border-radius:20px;background:var(--surface-2);display:grid;place-items:center;font-size:2rem}
+    .topic-heading h2{margin:0;font-size:clamp(1.55rem,5vw,2.2rem)}
+    .topic-heading p{margin:.4rem 0 0;color:var(--muted)}
+    .alert-box,.info-box,.warning-box{
+      padding:14px 16px;border-radius:15px;margin:12px 0;border:1px solid;
+    }
+    .alert-box{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.28)}
+    .warning-box{background:rgba(245,158,11,.09);border-color:rgba(245,158,11,.3)}
+    .info-box{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.25)}
+    details.accordion{
+      background:var(--surface);border:1px solid var(--border);border-radius:16px;
+      margin:10px 0;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.03);
+    }
+    details.accordion[open]{border-color:rgba(15,118,110,.45)}
+    details.accordion summary{
+      list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:15px 17px;font-weight:850;cursor:pointer;
+    }
+    details.accordion summary::-webkit-details-marker{display:none}
+    details.accordion summary::after{content:"＋";font-size:1.2rem;color:var(--primary)}
+    details.accordion[open] summary::after{content:"−"}
+    .accordion-content{padding:0 17px 17px;border-top:1px solid var(--border)}
+    .subhead{
+      margin:14px 0 7px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;
+      color:var(--primary);font-weight:900;
+    }
+    .check-list{display:grid;gap:7px}
+    .check-item{
+      display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;
+      padding:8px 10px;border-radius:11px;background:var(--surface-2);
+    }
+    .check-item.checked span{text-decoration:line-through;color:var(--muted)}
+    .check-item.dont{border-left:3px solid var(--danger)}
+    .check-item.do{border-left:3px solid var(--success)}
+    .numbered{counter-reset:steps;display:grid;gap:8px;margin:9px 0}
+    .numbered .step{counter-increment:steps;display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start}
+    .numbered .step::before{
+      content:counter(steps);width:27px;height:27px;border-radius:50%;display:grid;place-items:center;
+      background:var(--primary);color:#fff;font-weight:850;font-size:.78rem;
+    }
+    .topic-notes{
+      width:100%;min-height:105px;resize:vertical;border:1px solid var(--border);
+      background:var(--surface);color:var(--text);border-radius:13px;padding:12px;
+    }
+    .page-bottom-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+    /* Modals */
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.52);
+      display:none;align-items:center;justify-content:center;padding:16px;
+    }
+    .modal-backdrop.open{display:flex}
+    .modal{
+      width:min(760px,100%);max-height:90vh;overflow:auto;
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.28);
+    }
+    .modal-head{
+      position:sticky;top:0;z-index:1;background:var(--surface);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:16px 18px;border-bottom:1px solid var(--border);
+    }
+    .modal-head h2{margin:0;font-size:1.15rem}
+    .modal-body{padding:18px}
+    .modal-foot{
+      position:sticky;bottom:0;background:var(--surface);
+      display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;
+      padding:13px 18px;border-top:1px solid var(--border);
+    }
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .field{display:grid;gap:5px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:.78rem;color:var(--muted);font-weight:800}
+    .field input,.field textarea,.field select{
+      width:100%;border:1px solid var(--border);background:var(--bg);color:var(--text);
+      border-radius:11px;padding:.72rem .8rem;
+    }
+    .export-tree{display:grid;gap:9px}
+    .export-topic{
+      border:1px solid var(--border);border-radius:14px;padding:11px;background:var(--surface-2);
+    }
+    .export-topic-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .export-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:9px 0 0 26px}
+    .export-check{display:flex;align-items:flex-start;gap:7px;font-size:.84rem}
+    .toast{
+      position:fixed;left:50%;bottom:22px;z-index:200;transform:translate(-50%,20px);
+      background:#102a27;color:#fff;border-radius:12px;padding:10px 14px;
+      opacity:0;pointer-events:none;transition:.2s ease;box-shadow:var(--shadow);
+      max-width:90%;text-align:center;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    @media(max-width:760px){
+      header.hero{grid-template-columns:1fr}
+      .header-actions{justify-content:flex-start}
+      .dashboard{grid-template-columns:1fr}
+      .topic-grid{grid-template-columns:1fr}
+      .controls{grid-template-columns:1fr}
+      .control-buttons{justify-content:flex-start}
+      .form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .export-sections{grid-template-columns:1fr}
+    }
+    @media(max-width:420px){
+      .app-shell{padding-left:12px;padding-right:12px}
+      .quick-grid{grid-template-columns:1fr}
+      .topic-card{grid-template-columns:auto 1fr}
+      .card-actions{grid-column:1/-1;flex-direction:row;justify-content:flex-end}
+    }
+    @media print{
+      .marquee-wrap,header.hero,.dashboard,.controls,.hint,.footer,.modal-backdrop,.toast{display:none!important}
+      body{background:#fff;color:#000}
+      .topic-grid{display:block}
+    }
+  </style>
+</head>
+<body>
+  <div class="marquee-wrap" aria-label="Important application message">
+    <div class="marquee">
+      <span>🎓 A practical safety, health, study, food, budgeting and independent-living guide for college students staying away from family.</span>
+      <span>⚠️ In a life-threatening emergency in the Philippines, call Unified 911 when it is safe to do so.</span>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="logo" aria-hidden="true">🧭</div>
+        <div>
+          <h1>Student Away Guide PH</h1>
+          <p class="subtitle">A clear, offline-ready basic guide for students living in boarding houses, dormitories or apartments away from their families.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="profileBtn" title="Emergency profile">🪪 My Plan</button>
+        <button class="icon-btn" id="backupBtn" title="Backup and restore">💾 Backup</button>
+        <button class="icon-btn" id="themeBtn" title="Switch appearance">🌙 Theme</button>
+      </div>
+    </header>
+
+    <section class="dashboard" aria-label="Student guide dashboard">
+      <div class="panel">
+        <div class="panel-title">
+          <h2>My guide progress</h2>
+          <strong id="progressPercent">0%</strong>
+        </div>
+        <div class="progress-track" aria-label="Checklist progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="progressText">0 of 0 guide items checked</span>
+          <span>Saved on this device</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><h2>Emergency shortcuts</h2></div>
+        <div class="quick-grid">
+          <button class="quick" data-open-topic="emergency">🚨 Emergency<span>Violence, fire, quake</span></button>
+          <button class="quick" data-open-topic="health">🩺 Unwell<span>Warning signs and help</span></button>
+          <button class="quick" data-open-topic="flood">🌧️ Flood<span>Travel and boarding house</span></button>
+        </div>
+        <div class="emergency-call">
+          <div><strong>Immediate danger?</strong><br><small>Move to safety first, then call.</small></div>
+          <a class="btn danger" href="tel:911" aria-label="Call 911">Call 911</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Guide controls">
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">🔎</span>
+        <label class="visually-hidden" for="searchInput">Search guide topics</label>
+        <input id="searchInput" type="search" placeholder="Search safety, food, class, illness, money…" autocomplete="off" />
+      </div>
+      <div class="control-buttons">
+        <button class="btn soft" id="arrangeBtn">↕ Arrange</button>
+        <button class="btn soft" id="exportBtn">🖨 Select & Print/PDF</button>
+      </div>
+    </section>
+
+    <p class="hint" id="arrangeHint">
+      <span aria-hidden="true">💡</span>
+      <span>Priority topics are placed first. Tap <strong>Arrange</strong> to show mobile-friendly up/down controls, or drag cards on a computer. Your order is saved automatically.</span>
+    </p>
+
+    <main>
+      <div class="topic-grid" id="topicGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState">No topic matches your search.</div>
+    </main>
+
+    <footer class="footer">
+      <strong>Student Away Guide PH</strong><br>
+      Prepared as a personal reference only. Follow your school, boarding-house, LGU and emergency responders’ official instructions.<br>
+      <span id="footerYear"></span> • Data remains in your browser unless you export a backup.
+      <details style="margin:12px auto 0;max-width:760px;text-align:left">
+        <summary style="cursor:pointer;font-weight:800;color:var(--primary)">Safety basis and official references</summary>
+        <div style="padding:10px 2px 0">
+          Guidance was organized using official material from
+          <a href="https://www.dilg.gov.ph/news/One-Number-for-All-Emergencies-Unified-911-to-Launch-Nationwide/NC-2025-1177" target="_blank" rel="noopener">DILG Unified 911</a>,
+          <a href="https://www.phivolcs.dost.gov.ph/earthquake-advisory/" target="_blank" rel="noopener">DOST-PHIVOLCS</a>,
+          <a href="https://www.who.int/activities/promoting-safe-food-handling/five-key-to-safer-food" target="_blank" rel="noopener">WHO food safety</a>,
+          <a href="https://www.cisa.gov/resources-tools/resources/active-shooter-poster" target="_blank" rel="noopener">CISA violent-incident response</a>,
+          and <a href="https://www.cdc.gov/floods/safety/floodwater-after-a-disaster-or-emergency-safety.html" target="_blank" rel="noopener">CDC floodwater safety</a>.
+          Review date: July 2026. Local instructions always take priority.
+        </div>
+      </details>
+    </footer>
+  </div>
+
+  <section class="page-view" id="topicPage" aria-hidden="true">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="btn" id="closeTopicBtn">← Back to topics</button>
+        <button class="btn soft" id="printCurrentBtn">🖨 Print this topic</button>
+      </div>
+    </div>
+    <div class="page-body" id="topicPageBody"></div>
+  </section>
+
+  <!-- Emergency Profile Modal -->
+  <div class="modal-backdrop" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="profileTitle">My emergency and student plan</h2>
+        <button class="btn small" data-close-modal="profileModal">✕</button>
+      </div>
+      <form id="profileForm">
+        <div class="modal-body">
+          <div class="info-box">Save information you may need when calling for help. Avoid entering passwords, PINs, OTPs or full bank details.</div>
+          <div class="form-grid">
+            <div class="field"><label for="studentName">Student name</label><input id="studentName" name="studentName"></div>
+            <div class="field"><label for="bloodType">Blood type, if known</label><input id="bloodType" name="bloodType" placeholder="Example: O+"></div>
+            <div class="field full"><label for="boardingAddress">Boarding-house address / nearby landmark</label><textarea id="boardingAddress" name="boardingAddress" rows="2"></textarea></div>
+            <div class="field"><label for="parentContact">Parent/guardian contact</label><input id="parentContact" name="parentContact" inputmode="tel"></div>
+            <div class="field"><label for="landlordContact">Landlord/house manager contact</label><input id="landlordContact" name="landlordContact" inputmode="tel"></div>
+            <div class="field"><label for="schoolContact">School clinic/security contact</label><input id="schoolContact" name="schoolContact" inputmode="tel"></div>
+            <div class="field"><label for="barangayContact">Barangay/LGU responder contact</label><input id="barangayContact" name="barangayContact" inputmode="tel"></div>
+            <div class="field full"><label for="medicalInfo">Allergies, regular medicines or important medical information</label><textarea id="medicalInfo" name="medicalInfo" rows="3"></textarea></div>
+            <div class="field full"><label for="meetingPoint">Family/buddy meeting point during a major emergency</label><input id="meetingPoint" name="meetingPoint"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" data-close-modal="profileModal">Cancel</button>
+          <button type="submit" class="btn primary">Save plan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Backup Modal -->
+  <div class="modal-backdrop" id="backupModal" role="dialog" aria-modal="true" aria-labelledby="backupTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="backupTitle">Backup, import and reset</h2>
+        <button class="btn small" data-close-modal="backupModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-box"><strong>Backup regularly.</strong> Browser storage can be cleared when app data, cache or browsing data is deleted.</div>
+        <div class="page-bottom-actions">
+          <button class="btn primary" id="downloadBackupBtn">⬇ Download JSON backup</button>
+          <button class="btn" id="chooseImportBtn">⬆ Import JSON backup</button>
+          <input type="file" id="importFile" accept=".json,application/json" hidden>
+          <button class="btn danger" id="resetDataBtn">🗑 Reset saved data</button>
+        </div>
+        <p><small>The backup includes your topic order, checklist progress, notes, theme and emergency profile. It does not include the app’s HTML file.</small></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal-backdrop" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="exportTitle">Choose what to print or save as PDF</h2>
+        <button class="btn small" data-close-modal="exportModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="page-bottom-actions" style="margin-top:0;margin-bottom:12px">
+          <button class="btn small" id="selectAllExport">Select all</button>
+          <button class="btn small" id="clearAllExport">Clear all</button>
+        </div>
+        <div class="form-grid" style="margin-bottom:14px">
+          <label class="export-check"><input type="checkbox" id="includeProfilePrint"> Include my emergency plan</label>
+          <label class="export-check"><input type="checkbox" id="includeNotesPrint" checked> Include my notes</label>
+          <label class="export-check"><input type="checkbox" id="includeStatusPrint" checked> Show checklist status</label>
+          <label class="export-check"><input type="checkbox" id="checkedOnlyPrint"> Include checked items only</label>
+        </div>
+        <div class="export-tree" id="exportTree"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close-modal="exportModal">Cancel</button>
+        <button class="btn primary" id="generatePrintBtn">Open print / PDF view</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    const APP_VERSION = "1.0.0";
+    const STORAGE_KEY = "studentAwayGuidePH_v1";
+
+    const TOPICS = [
+      {
+        id:"emergency", icon:"🚨", title:"Emergency Quick Actions",
+        description:"Immediate actions for violent incidents, fire, earthquake, suspicious threats and accidents.",
+        critical:true, tags:["priority","safety","911","shooting","violence","fire","earthquake"],
+        intro:"In an emergency, protect life first. Use the action that fits the danger, follow official instructions and call Unified 911 when it is safe.",
+        alert:"Do not delay escape to collect belongings, record videos or post online. Move away from danger and help others only when you can do so without creating another victim.",
+        sections:[
+          {
+            title:"Armed attack or school shooting: Escape, Hide, Defend",
+            intro:"Use these options according to your situation. Escaping is preferred when a safe route is available; defending yourself is only a last resort against an immediate threat to life.",
+            numbered:[
+              "ESCAPE when a safe route exists. Move away from gunfire or the attacker, leave belongings, warn people without delaying yourself, and keep your hands visible.",
+              "HIDE when escape is unsafe. Lock and barricade the door, move out of view, silence the phone including vibration, turn off lights if appropriate, and remain quiet.",
+              "DEFEND only as a last resort when you face immediate danger and cannot escape or hide. Act decisively to disrupt or stop the attack using available objects and coordinated action."
+            ],
+            dos:[
+              "Follow school alerts, teachers, security personnel and police instructions.",
+              "Call 911 only when you can do so without revealing your hiding place; give the exact location, number and description of attackers, weapons seen and known injuries.",
+              "If outside school, move away from the danger, enter a secure building when possible and do not join crowds watching the incident.",
+              "When police arrive, keep empty hands raised and visible, avoid sudden movements and follow directions immediately.",
+              "Report credible threats, weapons, suspicious behavior or attack plans to school authorities and police; preserve messages or screenshots without spreading them."
+            ],
+            donts:[
+              "Do not run toward gunfire, screaming or crowds to investigate.",
+              "Do not stop to record, livestream or retrieve a bag.",
+              "Do not open a secured door for an unknown person during an active threat.",
+              "Do not grab, shout at or make sudden movements toward responding officers.",
+              "Do not spread unverified rumors, names or locations that may cause panic or interfere with responders."
+            ]
+          },
+          {
+            title:"Earthquake in a four-storey boarding house",
+            numbered:[
+              "During shaking: DROP or DUCK, COVER your head and neck under sturdy furniture, and HOLD ON.",
+              "After shaking stops: put on footwear, check the exit, use stairs and move to an open area away from buildings, walls, glass, posts and wires.",
+              "Expect aftershocks. Repeat Drop, Cover and Hold whenever shaking resumes."
+            ],
+            dos:[
+              "Stay away from windows, cabinets, shelves and hanging objects.",
+              "Know two exits and a safe assembly area before an earthquake happens.",
+              "On the lowest floor, evacuate only after the strong shaking stops unless fire or another immediate danger requires movement.",
+              "If near the coast after a strong or long quake, follow tsunami warnings and move inland or to higher ground."
+            ],
+            donts:[
+              "Do not run outside or rush to the stairs while the building is strongly shaking.",
+              "Do not use an elevator.",
+              "Do not return to a visibly damaged building until authorities or a qualified person declares it safe.",
+              "Do not light a flame or operate switches when you smell gas."
+            ]
+          },
+          {
+            title:"Fire, smoke or possible gas leak",
+            dos:[
+              "Alert others, leave through the nearest safe exit, use stairs and call 911 from a safe place.",
+              "Crawl low under smoke and close doors behind you when possible.",
+              "Feel a closed door with the back of your hand before opening; use another exit when it is hot.",
+              "Proceed to the agreed meeting point and tell responders if someone may be trapped."
+            ],
+            donts:[
+              "Do not hide under a bed or inside a cabinet.",
+              "Do not return for a phone, laptop, money or documents.",
+              "Do not use water on burning cooking oil or energized electrical equipment.",
+              "Do not re-enter until firefighters say it is safe."
+            ]
+          },
+          {
+            title:"Suspicious package, bomb threat or explosion",
+            dos:[
+              "Move away from the object or damaged area and alert school security, the landlord or police.",
+              "Follow evacuation instructions and use a route away from the suspicious object.",
+              "Write down exact threat words, time, caller details or message information when safe.",
+              "After an explosion, watch for fire, unstable structures, falling debris and secondary hazards."
+            ],
+            donts:[
+              "Do not touch, shake, move, open or photograph a suspicious object at close range.",
+              "Do not use a radio or phone beside a suspicious package; move away before calling.",
+              "Do not gather around the area or return because the first explosion has ended.",
+              "Do not invent or forward bomb threats; these can cause panic and serious legal consequences."
+            ]
+          },
+          {
+            title:"Road crash or serious injury nearby",
+            dos:[
+              "Check for continuing danger from traffic, fire, wires or fuel before approaching.",
+              "Call 911 and provide the exact location, number of injured people and visible hazards.",
+              "Control severe external bleeding with firm direct pressure using clean cloth when trained and safe.",
+              "Keep the person still and calm while waiting for responders, unless remaining creates immediate danger."
+            ],
+            donts:[
+              "Do not move a seriously injured person unnecessarily, especially after a fall or collision.",
+              "Do not give food, water or medicine to an unconscious or seriously injured person.",
+              "Do not crowd the victim, block responders or post identifiable images online.",
+              "Do not attempt procedures beyond your training."
+            ]
+          },
+          {
+            title:"When police or responders arrive",
+            dos:[
+              "Keep your hands empty, visible and above waist level.",
+              "Follow commands even when instructions seem abrupt or different from what you expected.",
+              "Provide concise facts: location, direction of danger, descriptions, injuries and hazards.",
+              "Move to the designated safe or reunification area."
+            ],
+            donts:[
+              "Do not run toward, hold onto or argue with responders.",
+              "Do not point an object that may be mistaken for a weapon.",
+              "Do not leave the safe area without checking in when authorities are accounting for students.",
+              "Do not post operational locations of police or hidden students during an ongoing incident."
+            ]
+          }
+        ]
+      },
+      {
+        id:"health", icon:"🩺", title:"Feeling Unwell Away From Parents",
+        description:"What to do, who to tell, medicine safety and warning signs requiring urgent help.",
+        critical:true, tags:["priority","health","medicine","clinic","illness"],
+        intro:"Do not hide serious symptoms just to avoid missing class. Tell a trusted person early and seek qualified care when warning signs appear.",
+        sections:[
+          {
+            title:"First actions when you feel sick",
+            numbered:[
+              "Tell a parent or guardian and a nearby trusted person such as the landlord, boardmate, teacher or adviser.",
+              "Write down the symptoms, start time, temperature, recent food, medicines taken and known allergies.",
+              "Rest in a safe place, drink safe water and arrange clinic or medical assessment when needed.",
+              "Ask someone to accompany you if you are weak, dizzy, confused or at risk of fainting."
+            ],
+            dos:[
+              "Keep your phone charged and emergency contacts easy to access.",
+              "Wear a mask and limit close contact when you may have a contagious respiratory illness.",
+              "Use oral rehydration solution for fluid loss from vomiting or diarrhea when appropriate and follow package directions.",
+              "Follow a doctor’s or pharmacist’s instructions and read medicine labels carefully."
+            ],
+            donts:[
+              "Do not take another person’s prescription medicine.",
+              "Do not combine medicines without checking active ingredients and interactions.",
+              "Do not use leftover antibiotics or self-medicate with antibiotics.",
+              "Do not mix medicines with alcohol or rely only on social-media advice."
+            ]
+          },
+          {
+            title:"Call 911 or seek emergency care now",
+            dos:[
+              "Get urgent help for difficulty breathing, chest pain, fainting, seizure, severe confusion or inability to wake normally.",
+              "Get urgent help for face or throat swelling, severe allergic reaction, uncontrolled bleeding or major injury.",
+              "Seek urgent assessment for sudden severe pain, vomiting blood, coughing blood, poisoning, burns or electric shock.",
+              "For severe dehydration, repeated vomiting, bloody diarrhea or inability to keep fluids down, seek medical care promptly."
+            ],
+            donts:[
+              "Do not travel alone when faint, severely weak, confused or having trouble breathing.",
+              "Do not force an unconscious person to eat, drink or take medicine.",
+              "Do not delay emergency care while waiting for symptoms to become unbearable.",
+              "Do not drive yourself when your condition can impair judgment or consciousness."
+            ]
+          },
+          {
+            title:"Minor illness and recovery habits",
+            dos:[
+              "Rest, hydrate and eat simple food you can tolerate.",
+              "Inform instructors early when illness affects attendance or deadlines.",
+              "Keep receipts, prescriptions, medical certificates and test results when needed by school.",
+              "Clean frequently touched items and wash hands regularly."
+            ],
+            donts:[
+              "Do not return to demanding activity too quickly.",
+              "Do not share drinking bottles, utensils, towels or medicines.",
+              "Do not skip all meals when you can tolerate small portions.",
+              "Do not ignore symptoms that persist, worsen or repeatedly return."
+            ]
+          },
+          {
+            title:"Personal medicine kit",
+            dos:[
+              "Keep only properly labeled, unexpired medicines you can safely use.",
+              "Store medicines according to label instructions and away from heat, moisture and other people.",
+              "Include a thermometer, basic wound supplies, masks and your regular prescribed medicines.",
+              "Record allergies and emergency medical information in My Plan."
+            ],
+            donts:[
+              "Do not store loose tablets without labels.",
+              "Do not share prescription medicines.",
+              "Do not use medicines past expiry or with damaged packaging.",
+              "Do not keep medicine where children or unauthorized people can reach it."
+            ]
+          }
+        ]
+      },
+      {
+        id:"flood", icon:"🌧️", title:"Flood, Heavy Rain and Travel Safety",
+        description:"High water at the boarding house or on the way to school, lightning and stranded travel.",
+        critical:true, tags:["priority","flood","rain","weather","commute"],
+        intro:"Class attendance is never worth crossing dangerous floodwater. Turn around, move to higher ground and inform your school and family.",
+        sections:[
+          {
+            title:"Floodwater on the way to school",
+            dos:[
+              "Check official weather, school and LGU advisories before leaving.",
+              "Use a known alternate route or delay travel when the regular route is flooded.",
+              "Turn around when water covers the road or its depth and current are uncertain.",
+              "Move to a sturdy building or higher ground when water rises quickly.",
+              "Tell your teacher, parent or landlord where you are and send your location when stranded."
+            ],
+            donts:[
+              "Do not walk, swim, cycle or drive through moving or unfamiliar floodwater.",
+              "Do not assume a road is safe because another person crossed it.",
+              "Do not hold electrical posts, metal fences or wires near floodwater.",
+              "Do not use shortcuts beside rivers, creeks, drainage channels or unstable slopes."
+            ]
+          },
+          {
+            title:"Water rising at the lowest floor",
+            numbered:[
+              "Move documents, gadgets, medicines and emergency supplies upward before water becomes deep.",
+              "Evacuate early when advised; do not wait for routes to be cut off.",
+              "If safe evacuation is no longer possible, move to a secure upper floor, report your exact location and await trained rescuers."
+            ],
+            dos:[
+              "Keep a waterproof go-bag beside the exit or bed.",
+              "Switch off the main breaker only when the area and your hands are dry and access is safe.",
+              "Wear closed footwear and avoid contact with contaminated water.",
+              "Clean and disinfect items exposed to floodwater."
+            ],
+            donts:[
+              "Do not touch plugs, appliances, wires or breakers while standing in water.",
+              "Do not return downstairs for belongings when water is rapidly rising.",
+              "Do not eat food or take medicine contaminated by floodwater.",
+              "Do not switch wet electrical appliances on until properly checked and dried."
+            ]
+          },
+          {
+            title:"Lightning and severe rain",
+            dos:[
+              "Shelter inside a sturdy enclosed building.",
+              "Stay away from windows and wired electrical equipment.",
+              "Charge devices before storms and keep a flashlight ready.",
+              "Leave exposed places and water areas when thunder is heard."
+            ],
+            donts:[
+              "Do not shelter under an isolated tree.",
+              "Do not remain on rooftops, open fields, courts, beaches or exposed waiting sheds.",
+              "Do not continue travelling merely because you are already halfway.",
+              "Do not use damaged or wet charging equipment."
+            ]
+          },
+          {
+            title:"After contact with floodwater",
+            dos:[
+              "Wash exposed skin with soap and clean water as soon as possible.",
+              "Clean wounds and seek medical advice for deep, dirty or infected wounds.",
+              "Wash contaminated clothes separately with detergent.",
+              "Watch for fever, severe muscle pain, rash, vomiting, diarrhea or signs of infection."
+            ],
+            donts:[
+              "Do not ignore cuts or puncture wounds exposed to dirty water.",
+              "Do not walk barefoot in mud or flood debris.",
+              "Do not use flood-soaked cosmetics, food or medicines.",
+              "Do not sleep in a damp room with unsafe electrical wiring."
+            ]
+          }
+        ]
+      },
+      {
+        id:"boarding", icon:"🏠", title:"Boarding-House Living and Safety",
+        description:"House rules, cleanliness, electricity, visitors, security and being a responsible boarder.",
+        tags:["boarding","dorm","house","safety","rules"],
+        intro:"A responsible boarder respects people, property, house rules and shared resources while protecting personal safety.",
+        sections:[
+          {
+            title:"Daily boarder responsibilities",
+            dos:[
+              "Pay rent and agreed utility charges on time and keep receipts.",
+              "Follow rules on curfew, visitors, cooking, noise and appliances.",
+              "Clean your room and shared spaces; dispose of garbage properly.",
+              "Respect boardmates’ privacy, belongings, sleep and study time.",
+              "Report leaks, damaged locks, hot outlets, exposed wires and structural cracks."
+            ],
+            donts:[
+              "Do not borrow food, money, chargers or belongings without permission.",
+              "Do not bring unapproved visitors or allow strangers to enter behind you.",
+              "Do not leave dirty dishes, wet floors or garbage in shared areas.",
+              "Do not create excessive noise or conflict."
+            ]
+          },
+          {
+            title:"Electrical and cooking safety",
+            dos:[
+              "Use a quality extension cord with proper rating and overload protection.",
+              "Unplug high-power appliances after use and keep them away from water.",
+              "Keep exits, hallways and stairs clear.",
+              "Know where the main breaker, fire extinguisher and exits are."
+            ],
+            donts:[
+              "Do not overload one outlet with a kettle, rice cooker, iron and other high-power appliances.",
+              "Do not use frayed wires, loose plugs or devices that spark or smell burnt.",
+              "Do not leave cooking, ironing or candles unattended.",
+              "Do not run electrical wires under mattresses or rugs."
+            ]
+          },
+          {
+            title:"Room and personal security",
+            dos:[
+              "Lock doors and windows when leaving and before sleeping.",
+              "Keep keys, ID, phone and emergency cash in consistent secure places.",
+              "Tell a trusted person when you will be away overnight.",
+              "Record the landlord’s contact, address and nearby landmark in My Plan."
+            ],
+            donts:[
+              "Do not share keys, passcodes, OTPs or exact routines casually.",
+              "Do not display cash, gadgets or valuables near open windows.",
+              "Do not tell strangers that you live alone.",
+              "Do not post your exact room number or live location publicly."
+            ]
+          },
+          {
+            title:"Shared bathroom and hygiene",
+            dos:[
+              "Wear bathroom slippers and keep the floor dry.",
+              "Use your own towel, toothbrush, razor and personal care items.",
+              "Clean after use and report blocked drains or leaks.",
+              "Store toiletries in a clean container."
+            ],
+            donts:[
+              "Do not leave sharp razors or medicines in shared areas.",
+              "Do not mix cleaning chemicals.",
+              "Do not leave wet clothes where they create slips or mold.",
+              "Do not ignore persistent foul odors, mold or sewage backup."
+            ]
+          }
+        ]
+      },
+      {
+        id:"food", icon:"🍲", title:"Food Preparation and Eating Safely",
+        description:"Cooking in the boarding house, street food, carinderias, water safety and leftovers.",
+        tags:["food","cooking","street food","eatery","hygiene"],
+        intro:"Use the five basic food-safety habits: keep clean, separate raw and cooked food, cook thoroughly, keep food at safe temperatures, and use safe water and ingredients.",
+        sections:[
+          {
+            title:"Preparing food in the boarding house",
+            dos:[
+              "Wash hands with soap before cooking and eating.",
+              "Clean knives, chopping boards, plates and work surfaces.",
+              "Keep raw meat, fish and eggs separate from cooked food.",
+              "Cook meat, fish, poultry and eggs thoroughly.",
+              "Cover food and refrigerate perishable leftovers promptly.",
+              "Reheat leftovers until steaming hot."
+            ],
+            donts:[
+              "Do not use the same unwashed knife or board for raw and cooked food.",
+              "Do not taste food to test whether it is spoiled.",
+              "Do not eat moldy food, swollen cans or food with a strange odor or color.",
+              "Do not leave cooked food uncovered overnight.",
+              "Do not repeatedly cool and reheat the same food."
+            ]
+          },
+          {
+            title:"Buying street food",
+            dos:[
+              "Choose a clean, busy stall where food is cooked in front of you and served hot.",
+              "Check that food is covered and protected from flies, dust and dirty water.",
+              "Choose vendors who use tongs or clean utensils and separate raw from cooked food.",
+              "Wash or sanitize your hands before eating."
+            ],
+            donts:[
+              "Do not buy food that has sat lukewarm for a long time.",
+              "Do not eat undercooked meat, eggs, seafood or internal organs.",
+              "Do not consume questionable ice, water or uncovered sauces.",
+              "Do not continue eating when food tastes sour, rancid or unusual."
+            ]
+          },
+          {
+            title:"Eating in carinderias and eateries",
+            dos:[
+              "Choose places with clean tables, utensils, water containers and covered food.",
+              "Prefer freshly cooked dishes that are still hot.",
+              "Keep your bag, phone and wallet with you.",
+              "Check the price before ordering and stay within your meal budget."
+            ],
+            donts:[
+              "Do not use visibly dirty, cracked or greasy utensils.",
+              "Do not choose food that should be hot but is only slightly warm.",
+              "Do not leave drinks or food unattended.",
+              "Do not overeat before exams, travel or physical activity."
+            ]
+          },
+          {
+            title:"Drinking water and leftovers",
+            dos:[
+              "Use sealed, treated, boiled or otherwise trusted drinking water.",
+              "Store leftovers in clean covered containers.",
+              "Write the storage date when keeping several containers.",
+              "Discard food when storage time or temperature is uncertain."
+            ],
+            donts:[
+              "Do not drink from an unverified tap after flooding or service interruptions.",
+              "Do not leave dairy, meat, seafood or cooked rice at room temperature for long periods.",
+              "Do not mix fresh food with old leftovers in the same container.",
+              "Do not keep leftovers when power loss has made refrigeration unreliable."
+            ]
+          }
+        ]
+      },
+      {
+        id:"class", icon:"📚", title:"Entering and Staying in Class",
+        description:"Punctuality, classroom conduct, honesty, participation, safety and respectful behavior.",
+        tags:["class","school","teacher","study","conduct"],
+        intro:"Be prepared, respectful and attentive. Good classroom behavior protects learning time for you and everyone else.",
+        sections:[
+          {
+            title:"Before and while entering",
+            dos:[
+              "Arrive five to ten minutes early when possible.",
+              "Prepare your notebook, pen, books and required materials.",
+              "Put your phone on silent mode.",
+              "When late, knock or ask permission and enter quietly.",
+              "Go directly to your seat without interrupting the lesson."
+            ],
+            donts:[
+              "Do not run, shout or block the doorway.",
+              "Do not enter while watching a phone or wearing earphones.",
+              "Do not interrupt the lesson with a long explanation for being late.",
+              "Do not take another student’s belongings or seat without permission."
+            ]
+          },
+          {
+            title:"During the lesson",
+            dos:[
+              "Listen, take useful notes and ask questions when unclear.",
+              "Raise your hand and allow others to finish speaking.",
+              "Participate respectfully in activities and group work.",
+              "Keep your desk and surroundings clean.",
+              "Follow laboratory, workshop, computer and evacuation rules."
+            ],
+            donts:[
+              "Do not sleep, play games or scroll social media during instruction.",
+              "Do not ridicule incorrect answers or different opinions.",
+              "Do not secretly record teachers or classmates.",
+              "Do not leave without permission except during an immediate emergency."
+            ]
+          },
+          {
+            title:"Academic honesty and digital conduct",
+            dos:[
+              "Complete your own work and cite sources when required.",
+              "Ask for clarification on allowed collaboration and AI use.",
+              "Protect classmates’ private information and images.",
+              "Report bullying, harassment, threats and unsafe behavior."
+            ],
+            donts:[
+              "Do not cheat, plagiarize or allow others to copy your work.",
+              "Do not spread classroom gossip or embarrassing media.",
+              "Do not bypass school systems or use another student’s account.",
+              "Do not bring prohibited weapons, alcohol, illegal drugs, cigarettes or vapes."
+            ]
+          },
+          {
+            title:"Classroom emergency awareness",
+            dos:[
+              "Know at least two possible exits when available.",
+              "Take drills seriously and listen to the teacher or safety officer.",
+              "Report smoke, exposed wiring, threats or suspicious objects immediately.",
+              "Keep aisles and doors unobstructed."
+            ],
+            donts:[
+              "Do not push, run or return for belongings during evacuation.",
+              "Do not ignore alarms because you think they are only drills.",
+              "Do not post live security details during an ongoing incident.",
+              "Do not separate from the assigned assembly or accounting area without permission."
+            ]
+          }
+        ]
+      },
+      {
+        id:"commute", icon:"🚌", title:"Commuting and Daily Travel",
+        description:"Safe routes, public transport, ride verification, road awareness and arriving home safely.",
+        tags:["travel","commute","jeepney","bus","motorcycle","school"],
+        intro:"Plan the trip before leaving and keep enough battery, fare and awareness to return safely.",
+        sections:[
+          {
+            title:"Before leaving",
+            dos:[
+              "Check weather, class announcements and transportation conditions.",
+              "Carry your ID, fare, emergency cash and a charged phone.",
+              "Tell a trusted person when travelling unusually early, late or to a new location.",
+              "Use familiar, populated and well-lit routes."
+            ],
+            donts:[
+              "Do not display large amounts of cash or expensive gadgets.",
+              "Do not leave without a return plan.",
+              "Do not wear both earphones where traffic or announcements cannot be heard.",
+              "Do not use isolated shortcuts just to save a few minutes."
+            ]
+          },
+          {
+            title:"Public transport and ride services",
+            dos:[
+              "Verify the vehicle, plate, driver and destination before boarding.",
+              "Keep your bag closed and in front of you in crowded transport.",
+              "Send trip details or live location during unfamiliar late-night travel.",
+              "Get off at a safe populated location when the driver behaves dangerously."
+            ],
+            donts:[
+              "Do not ride with a visibly intoxicated, sleepy or reckless driver.",
+              "Do not board an unmarked or suspicious vehicle.",
+              "Do not reveal your exact room number or that you live alone.",
+              "Do not sleep deeply while travelling alone."
+            ]
+          },
+          {
+            title:"Walking and crossing roads",
+            dos:[
+              "Use sidewalks, pedestrian lanes and safe crossings.",
+              "Look in all directions and make eye contact with drivers when possible.",
+              "Keep the phone away while crossing.",
+              "Wear visible clothing or use a light at night."
+            ],
+            donts:[
+              "Do not cross between parked vehicles or around blind curves.",
+              "Do not assume a vehicle will stop.",
+              "Do not chase a departing jeepney, bus or motorcycle.",
+              "Do not walk beside moving traffic while distracted."
+            ]
+          }
+        ]
+      },
+      {
+        id:"outings", icon:"🌆", title:"Outings, Friends and Nightlife",
+        description:"Day trips, nightlife, buddy system, drinks, personal boundaries, transport and safe return.",
+        tags:["friends","outing","nightlife","party","alcohol","consent"],
+        intro:"Enjoy time with friends without giving up your safety, judgment, budget, boundaries or next-day responsibilities.",
+        sections:[
+          {
+            title:"Before going out",
+            dos:[
+              "Tell a trusted person where you are going, who is with you and expected return time.",
+              "Choose a trusted buddy and agree not to leave one another behind.",
+              "Charge your phone and bring transport money plus emergency cash.",
+              "Plan the ride home before the outing starts.",
+              "Check weather and venue information."
+            ],
+            donts:[
+              "Do not depend entirely on friends for money, phone battery or transport.",
+              "Do not post your exact live location publicly.",
+              "Do not go when the organizer, destination or activity is unknown.",
+              "Do not bring unnecessary valuables."
+            ]
+          },
+          {
+            title:"Daytime outing",
+            dos:[
+              "Stay with the group in unfamiliar places.",
+              "Use sun protection, hydrate and follow water or hiking safety rules.",
+              "Keep bags and gadgets secure in crowded areas.",
+              "Ask permission before posting another person’s photo.",
+              "Leave early enough to avoid being stranded."
+            ],
+            donts:[
+              "Do not swim alone or dive into unfamiliar water.",
+              "Do not climb restricted structures, cliffs or rooftops for photos.",
+              "Do not join reckless dares.",
+              "Do not ride with a speeding, sleepy or intoxicated driver."
+            ]
+          },
+          {
+            title:"Nightlife and drinks",
+            dos:[
+              "Stay in established, well-lit venues and know the exits.",
+              "Get your own drink, keep it with you and stop consuming it if left unattended.",
+              "Eat, hydrate and keep a clear personal limit.",
+              "Leave when the crowd, people or situation feels unsafe.",
+              "Travel home with trusted companions."
+            ],
+            donts:[
+              "Do not accept opened drinks, medicine or unknown substances.",
+              "Do not mix alcohol with medicines, unknown substances or driving.",
+              "Do not pressure anyone to drink, dance, stay or enter a private location.",
+              "Do not leave a heavily intoxicated friend alone.",
+              "Do not drive after drinking or ride with a driver who drank."
+            ]
+          },
+          {
+            title:"Consent, boundaries and conflict",
+            dos:[
+              "Say no clearly and leave when uncomfortable.",
+              "Respect another person’s no, hesitation, silence or withdrawal.",
+              "Help a friend who is being isolated, harassed or pressured.",
+              "Walk away from arguments and seek security or responsible adults.",
+              "Report assault, threats, theft or harassment."
+            ],
+            donts:[
+              "Do not touch, kiss, photograph or record anyone without consent.",
+              "Do not use intoxication as an excuse for misconduct.",
+              "Do not join fights to prove loyalty.",
+              "Do not film and post violence or a vulnerable friend.",
+              "Do not enter private rooms or vehicles with people you barely know."
+            ]
+          },
+          {
+            title:"Returning to the boarding house",
+            dos:[
+              "Message your trusted contact that you arrived.",
+              "Enter quietly, follow curfew and lock the door.",
+              "Check your phone, wallet, keys, ID and school materials.",
+              "Hydrate, rest and prepare for the next day."
+            ],
+            donts:[
+              "Do not bring unapproved guests.",
+              "Do not cook when extremely tired or intoxicated.",
+              "Do not leave gates or doors unlocked.",
+              "Do not let frequent outings damage attendance, health, budget or grades."
+            ]
+          }
+        ]
+      },
+      {
+        id:"money", icon:"💳", title:"Money, GCash and Digital Safety",
+        description:"Budgeting, emergency money, scams, passwords, online buying and protecting school accounts.",
+        tags:["money","budget","gcash","scam","password","digital"],
+        intro:"Separate needs from wants, protect authentication details and keep an emergency reserve.",
+        sections:[
+          {
+            title:"Simple student budget",
+            dos:[
+              "Set aside rent and utilities before spending on anything else.",
+              "Divide allowance into food, transportation, school, load/data, savings and emergency funds.",
+              "Record daily spending and review it weekly.",
+              "Keep a small emergency reserve separate from daily cash."
+            ],
+            donts:[
+              "Do not spend the week’s allowance during the first few days.",
+              "Do not borrow for unnecessary wants or gambling.",
+              "Do not lend money you need for rent, fare or meals.",
+              "Do not ignore small repeated expenses."
+            ]
+          },
+          {
+            title:"GCash, banking and account security",
+            dos:[
+              "Use a strong unique PIN/password and enable available security features.",
+              "Verify the recipient name and amount before sending.",
+              "Use official apps and type addresses carefully.",
+              "Report unauthorized transactions immediately through official channels."
+            ],
+            donts:[
+              "Never share an OTP, MPIN, password, recovery code or full card details.",
+              "Do not click urgent prize, refund or account-warning links from unknown senders.",
+              "Do not let another person register an account using your identity.",
+              "Do not send money based only on a screenshot or chat message."
+            ]
+          },
+          {
+            title:"Online buying and marketplace meetups",
+            dos:[
+              "Check seller history, item details, total cost and return terms.",
+              "Meet in a public monitored place during daytime when an in-person exchange is necessary.",
+              "Inspect the item before confirming receipt when the platform allows it.",
+              "Keep transaction records."
+            ],
+            donts:[
+              "Do not move payment outside a platform merely for a discount.",
+              "Do not meet alone in a private or isolated place.",
+              "Do not pay a large deposit to an unverified seller.",
+              "Do not install remote-access apps for supposed customer support."
+            ]
+          }
+        ]
+      },
+      {
+        id:"daily", icon:"🧺", title:"Daily Living, Hygiene and Supplies",
+        description:"Sleeping, laundry, cleaning, essential utilities, personal care and room maintenance.",
+        tags:["daily","hygiene","laundry","supplies","cleaning"],
+        intro:"A clean, organized room reduces illness, stress, lost items and morning delays.",
+        sections:[
+          {
+            title:"Daily and weekly routine",
+            dos:[
+              "Make the bed, ventilate the room and remove food waste daily.",
+              "Wash dishes immediately and wipe cooking surfaces.",
+              "Schedule laundry, floor cleaning and bathroom cleaning weekly.",
+              "Change bedsheets and towels regularly.",
+              "Keep wet clothes and footwear in ventilated areas."
+            ],
+            donts:[
+              "Do not keep open food beside the bed.",
+              "Do not allow garbage, dirty dishes or damp fabric to accumulate.",
+              "Do not mix clean clothing with used or wet laundry.",
+              "Do not ignore insects, rodents, mold or persistent moisture."
+            ]
+          },
+          {
+            title:"Basic supplies to maintain",
+            dos:[
+              "Keep bedding, towel, hygiene items, slippers, hangers and laundry supplies.",
+              "Maintain a flashlight, power bank, extension cord with protection and basic first aid supplies.",
+              "Keep a reusable water bottle, eating utensils and covered food containers.",
+              "Maintain an umbrella, raincoat, padlock and spare key in a safe place."
+            ],
+            donts:[
+              "Do not buy large appliances before checking boarding-house rules.",
+              "Do not store too much perishable food without reliable refrigeration.",
+              "Do not place heavy objects on high unstable shelves.",
+              "Do not block airflow, exits or windows with storage."
+            ]
+          },
+          {
+            title:"Sleep and noise",
+            dos:[
+              "Aim for a consistent bedtime and prepare school items before sleeping.",
+              "Use earplugs or respectful quiet agreements when needed.",
+              "Keep alarms at a reasonable volume.",
+              "Reduce screen brightness and stimulating activity before bed."
+            ],
+            donts:[
+              "Do not rely on energy drinks instead of sleep.",
+              "Do not play loud music or calls late at night.",
+              "Do not charge devices under pillows or on the bed.",
+              "Do not ignore persistent sleep problems affecting health or class."
+            ]
+          }
+        ]
+      },
+      {
+        id:"study", icon:"📝", title:"Study, Time and Attendance",
+        description:"Daily schedule, assignments, exams, focus, group work and balancing independent life.",
+        tags:["study","time","attendance","exam","assignment"],
+        intro:"Your main reason for living away from home is to learn. Build routines that protect class attendance, study time, health and rest.",
+        sections:[
+          {
+            title:"Daily planning",
+            dos:[
+              "List the three most important tasks for the day.",
+              "Block time for classes, travel, meals, chores, review and sleep.",
+              "Prepare clothes, bag, IDs and materials the night before.",
+              "Start large tasks early and divide them into small steps."
+            ],
+            donts:[
+              "Do not schedule every minute without allowance for travel or rest.",
+              "Do not wait for motivation before starting.",
+              "Do not let chores pile up until examination week.",
+              "Do not stay awake all night when a planned review is possible."
+            ]
+          },
+          {
+            title:"Effective study habits",
+            dos:[
+              "Review lessons briefly after class.",
+              "Use active recall, practice questions and spaced review.",
+              "Study difficult subjects when your energy is highest.",
+              "Ask teachers or classmates for help early.",
+              "Take short planned breaks."
+            ],
+            donts:[
+              "Do not only reread notes without testing yourself.",
+              "Do not keep distracting notifications active.",
+              "Do not copy answers you do not understand.",
+              "Do not compare your progress constantly with others."
+            ]
+          },
+          {
+            title:"Attendance and deadlines",
+            dos:[
+              "Leave early enough for normal traffic and weather delays.",
+              "Record deadlines in one calendar or task list.",
+              "Inform the teacher early when illness or emergency affects attendance.",
+              "Submit honest partial work rather than disappearing when allowed."
+            ],
+            donts:[
+              "Do not skip class because of gaming, late outings or unfinished work.",
+              "Do not invent emergencies.",
+              "Do not ignore school messages and schedule changes.",
+              "Do not wait until the deadline to test file uploads or internet access."
+            ]
+          }
+        ]
+      },
+      {
+        id:"kit", icon:"🎒", title:"Go-Bag, Documents and Contacts",
+        description:"Emergency bag, copies of documents, contact list, meeting points and periodic checks.",
+        tags:["go bag","documents","contacts","emergency kit"],
+        intro:"Prepare before an emergency. Keep the bag light enough to carry quickly and update it regularly.",
+        sections:[
+          {
+            title:"Emergency go-bag checklist",
+            dos:[
+              "Pack drinking water and ready-to-eat food.",
+              "Include flashlight, whistle, charged power bank and charging cable.",
+              "Include first-aid supplies, masks and personal medicines.",
+              "Pack a raincoat, extra shirt, underwear and hygiene items.",
+              "Keep emergency cash in small denominations.",
+              "Use waterproof pouches for copies of IDs and important information."
+            ],
+            donts:[
+              "Do not make the bag too heavy to carry quickly.",
+              "Do not pack only gadgets and forget water, medicine and light.",
+              "Do not leave batteries, food or medicines unchecked past expiry.",
+              "Do not store the bag behind locked or heavy furniture."
+            ]
+          },
+          {
+            title:"Important documents and records",
+            dos:[
+              "Keep copies of school ID, valid ID, boarding agreement and receipts.",
+              "Store encrypted or protected digital copies in a trusted account.",
+              "Record emergency contacts on paper in case the phone is unavailable.",
+              "Keep prescriptions, allergy information and relevant medical records."
+            ],
+            donts:[
+              "Do not carry every original document daily.",
+              "Do not save PINs and passwords in an unprotected contact or note.",
+              "Do not post ID photos publicly.",
+              "Do not give document copies without knowing why they are needed."
+            ]
+          },
+          {
+            title:"Monthly readiness check",
+            dos:[
+              "Charge the power bank and test the flashlight.",
+              "Replace expired food, batteries and medicine.",
+              "Confirm family, landlord, school and barangay contacts.",
+              "Review two exits and the meeting point with boardmates."
+            ],
+            donts:[
+              "Do not assume emergency numbers and routes never change.",
+              "Do not block access to the bag.",
+              "Do not wait for a typhoon, quake or flood warning to prepare.",
+              "Do not forget to export an updated app backup."
+            ]
+          }
+        ]
+      },
+      {
+        id:"wellbeing", icon:"🫶", title:"Homesickness, Stress and Personal Support",
+        description:"Staying connected, asking for help, handling pressure and maintaining healthy routines.",
+        tags:["stress","homesick","mental","support","friends"],
+        intro:"Living away from family can be difficult. Asking for support is responsible, not weak.",
+        sections:[
+          {
+            title:"Staying emotionally steady",
+            dos:[
+              "Maintain regular contact with family or trusted people.",
+              "Keep realistic routines for meals, sleep, class and exercise.",
+              "Talk to a trusted friend, adviser, counselor or health professional when stress builds.",
+              "Break overwhelming problems into one next action.",
+              "Spend time outside the room and maintain supportive friendships."
+            ],
+            donts:[
+              "Do not isolate yourself for long periods when you are struggling.",
+              "Do not use alcohol, gambling or unsafe behavior to escape stress.",
+              "Do not compare your private difficulties with other people’s social-media highlights.",
+              "Do not ignore repeated panic, hopelessness or inability to function."
+            ]
+          },
+          {
+            title:"When a friend is struggling",
+            dos:[
+              "Listen calmly and take statements about self-harm or danger seriously.",
+              "Stay with the person and involve a trusted adult, counselor, health professional or emergency responder.",
+              "Remove immediate hazards only when it is safe.",
+              "Protect privacy while still getting necessary help."
+            ],
+            donts:[
+              "Do not promise to keep life-threatening danger secret.",
+              "Do not shame, challenge or dismiss the person.",
+              "Do not leave a person alone during an immediate crisis.",
+              "Do not try to handle a severe crisis without adult or professional help."
+            ]
+          },
+          {
+            title:"Healthy social boundaries",
+            dos:[
+              "Choose friends who respect study time, money limits and personal boundaries.",
+              "Say no to plans that are unsafe or unaffordable.",
+              "Resolve misunderstandings privately and calmly.",
+              "Step away from controlling or abusive behavior."
+            ],
+            donts:[
+              "Do not accept bullying as normal friendship.",
+              "Do not share private messages or images to embarrass someone.",
+              "Do not allow fear of missing out to control decisions.",
+              "Do not remain in a place where you feel threatened."
+            ]
+          }
+        ]
+      }
+    ];
+
+    const DEFAULT_STATE = {
+      version: APP_VERSION,
+      order: TOPICS.map(t=>t.id),
+      checks: {},
+      reviewed: {},
+      notes: {},
+      profile: {},
+      theme: "light"
+    };
+
+    let state = loadState();
+    let currentTopicId = null;
+    let arrangeMode = false;
+    let draggedId = null;
+
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+
+    function loadState(){
+      try{
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if(!parsed || typeof parsed !== "object") return structuredCloneSafe(DEFAULT_STATE);
+        const validIds = new Set(TOPICS.map(t=>t.id));
+        const savedOrder = Array.isArray(parsed.order) ? parsed.order.filter(id=>validIds.has(id)) : [];
+        TOPICS.forEach(t=>{ if(!savedOrder.includes(t.id)) savedOrder.push(t.id); });
+        return {
+          ...structuredCloneSafe(DEFAULT_STATE),
+          ...parsed,
+          order:savedOrder,
+          checks:parsed.checks || {},
+          reviewed:parsed.reviewed || {},
+          notes:parsed.notes || {},
+          profile:parsed.profile || {}
+        };
+      }catch(e){
+        return structuredCloneSafe(DEFAULT_STATE);
+      }
+    }
+
+    function structuredCloneSafe(obj){
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function saveState(){
+      state.version = APP_VERSION;
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }catch(error){
+        console.warn("Browser storage is unavailable; changes will last only until this page is closed.", error);
+      }
+      updateProgress();
+    }
+
+    function topicById(id){ return TOPICS.find(t=>t.id===id); }
+
+    function orderedTopics(){
+      return state.order.map(topicById).filter(Boolean);
+    }
+
+    function esc(value=""){
+      return String(value).replace(/[&<>"']/g, ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));
+    }
+
+    function slugPart(value){
+      return String(value).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+    }
+
+    function itemKey(topicId, sectionIndex, type, itemIndex){
+      return `${topicId}__${sectionIndex}__${type}__${itemIndex}`;
+    }
+
+    function allChecklistKeys(){
+      const keys=[];
+      TOPICS.forEach(topic=>{
+        topic.sections.forEach((section,si)=>{
+          ["dos","donts"].forEach(type=>{
+            (section[type]||[]).forEach((_,ii)=>keys.push(itemKey(topic.id,si,type,ii)));
+          });
+        });
+      });
+      return keys;
+    }
+
+    function updateProgress(){
+      const keys=allChecklistKeys();
+      const checked=keys.filter(k=>state.checks[k]).length;
+      const pct=keys.length ? Math.round(checked/keys.length*100) : 0;
+      $("#progressBar").style.width=pct+"%";
+      $("#progressPercent").textContent=pct+"%";
+      $("#progressText").textContent=`${checked} of ${keys.length} guide items checked`;
+    }
+
+    function renderCards(){
+      const query=$("#searchInput").value.trim().toLowerCase();
+      const grid=$("#topicGrid");
+      grid.innerHTML="";
+      const visible=orderedTopics().filter(topic=>{
+        const hay=[topic.title,topic.description,...topic.tags, ...topic.sections.map(s=>s.title)].join(" ").toLowerCase();
+        return !query || hay.includes(query);
+      });
+      $("#emptyState").style.display=visible.length ? "none" : "block";
+
+      visible.forEach((topic,index)=>{
+        const card=document.createElement("article");
+        card.className="topic-card";
+        card.dataset.id=topic.id;
+        card.dataset.critical=topic.critical ? "true":"false";
+        card.draggable=true;
+
+        const sectionCount=topic.sections.length;
+        card.innerHTML=`
+          <div class="card-icon" aria-hidden="true">${topic.icon}</div>
+          <div class="card-main">
+            <h3>${esc(topic.title)}</h3>
+            <p>${esc(topic.description)}</p>
+            <div class="card-meta">
+              <span class="badge">${sectionCount} sections</span>
+              <label class="review-check" title="Mark this topic as reviewed">
+                <input type="checkbox" data-reviewed="${topic.id}" ${state.reviewed[topic.id]?"checked":""}>
+                Reviewed
+              </label>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="move-btn up" aria-label="Move ${esc(topic.title)} up" ${(!arrangeMode||index===0)?"disabled":""}>↑</button>
+            <button class="open-btn" aria-label="Open ${esc(topic.title)}">›</button>
+            <button class="move-btn down" aria-label="Move ${esc(topic.title)} down" ${(!arrangeMode||index===visible.length-1)?"disabled":""}>↓</button>
+          </div>`;
+
+        card.addEventListener("click",e=>{
+          if(e.target.closest("button") || e.target.closest("label")) return;
+          openTopic(topic.id);
+        });
+        $(".open-btn",card).addEventListener("click",()=>openTopic(topic.id));
+        $(`[data-reviewed="${topic.id}"]`,card).addEventListener("change",e=>{
+          state.reviewed[topic.id]=e.target.checked;
+          saveState();
+          toast(e.target.checked ? "Topic marked as reviewed." : "Reviewed mark removed.");
+        });
+        $(".up",card).addEventListener("click",()=>moveTopic(topic.id,-1));
+        $(".down",card).addEventListener("click",()=>moveTopic(topic.id,1));
+
+        card.addEventListener("dragstart",()=>{
+          draggedId=topic.id; card.classList.add("dragging");
+        });
+        card.addEventListener("dragend",()=>{
+          draggedId=null;
+          card.classList.remove("dragging");
+          $$(".topic-card").forEach(c=>c.classList.remove("drag-over"));
+        });
+        card.addEventListener("dragover",e=>{
+          e.preventDefault();
+          if(draggedId && draggedId!==topic.id) card.classList.add("drag-over");
+        });
+        card.addEventListener("dragleave",()=>card.classList.remove("drag-over"));
+        card.addEventListener("drop",e=>{
+          e.preventDefault(); card.classList.remove("drag-over");
+          if(!draggedId || draggedId===topic.id) return;
+          const from=state.order.indexOf(draggedId);
+          const to=state.order.indexOf(topic.id);
+          state.order.splice(from,1);
+          state.order.splice(to,0,draggedId);
+          saveState(); renderCards(); toast("Priority order saved.");
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    function moveTopic(id,delta){
+      const index=state.order.indexOf(id);
+      const newIndex=index+delta;
+      if(index<0 || newIndex<0 || newIndex>=state.order.length) return;
+      [state.order[index],state.order[newIndex]]=[state.order[newIndex],state.order[index]];
+      saveState(); renderCards();
+    }
+
+    function renderChecklist(topicId,sectionIndex,type,items=[]){
+      if(!items.length) return "";
+      const label=type==="dos" ? "Do" : "Don’t";
+      return `
+        <div class="subhead">${label}</div>
+        <div class="check-list">
+          ${items.map((item,ii)=>{
+            const key=itemKey(topicId,sectionIndex,type,ii);
+            return `<label class="check-item ${type==="dos"?"do":"dont"} ${state.checks[key]?"checked":""}">
+              <input type="checkbox" data-check-key="${key}" ${state.checks[key]?"checked":""}>
+              <span>${esc(item)}</span>
+            </label>`;
+          }).join("")}
+        </div>`;
+    }
+
+    function renderNumbered(items=[]){
+      if(!items.length) return "";
+      return `<div class="numbered">${items.map(item=>`<div class="step"><div>${esc(item)}</div></div>`).join("")}</div>`;
+    }
+
+    function openTopic(id){
+      const topic=topicById(id);
+      if(!topic) return;
+      currentTopicId=id;
+      const body=$("#topicPageBody");
+      body.innerHTML=`
+        <div class="topic-heading">
+          <div class="big-icon" aria-hidden="true">${topic.icon}</div>
+          <div>
+            <h2>${esc(topic.title)}</h2>
+            <p>${esc(topic.intro)}</p>
+          </div>
+        </div>
+        ${topic.alert?`<div class="alert-box"><strong>Important:</strong> ${esc(topic.alert)}</div>`:""}
+        ${topic.sections.map((section,si)=>`
+          <details class="accordion" ${si===0?"open":""}>
+            <summary><span>${si+1}. ${esc(section.title)}</span></summary>
+            <div class="accordion-content">
+              ${section.intro?`<p>${esc(section.intro)}</p>`:""}
+              ${renderNumbered(section.numbered)}
+              ${renderChecklist(topic.id,si,"dos",section.dos)}
+              ${renderChecklist(topic.id,si,"donts",section.donts)}
+            </div>
+          </details>`).join("")}
+        <details class="accordion">
+          <summary><span>My personal notes</span></summary>
+          <div class="accordion-content">
+            <p><small>Notes are saved automatically on this device and included in JSON backups.</small></p>
+            <textarea class="topic-notes" id="topicNotes" placeholder="Add route details, contacts, reminders, house rules or personal plans…">${esc(state.notes[id]||"")}</textarea>
+          </div>
+        </details>
+        <div class="page-bottom-actions">
+          <button class="btn primary" id="markReviewedPage">${state.reviewed[id]?"✓ Reviewed":"Mark topic reviewed"}</button>
+          <button class="btn" id="openProfileFromTopic">🪪 Open My Plan</button>
+        </div>`;
+
+      $$("[data-check-key]",body).forEach(input=>{
+        input.addEventListener("change",e=>{
+          const key=e.target.dataset.checkKey;
+          state.checks[key]=e.target.checked;
+          e.target.closest(".check-item").classList.toggle("checked",e.target.checked);
+          saveState();
+        });
+      });
+      $("#topicNotes").addEventListener("input",e=>{
+        state.notes[id]=e.target.value;
+        saveState();
+      });
+      $("#markReviewedPage").addEventListener("click",()=>{
+        state.reviewed[id]=!state.reviewed[id];
+        saveState();
+        $("#markReviewedPage").textContent=state.reviewed[id]?"✓ Reviewed":"Mark topic reviewed";
+        renderCards();
+      });
+      $("#openProfileFromTopic").addEventListener("click",()=>openModal("profileModal"));
+      $("#topicPage").classList.add("open");
+      $("#topicPage").setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+      $("#topicPage").scrollTop=0;
+      $("#closeTopicBtn").focus();
+    }
+
+    function closeTopic(){
+      $("#topicPage").classList.remove("open");
+      $("#topicPage").setAttribute("aria-hidden","true");
+      document.body.style.overflow="";
+      currentTopicId=null;
+      renderCards();
+    }
+
+    function openModal(id){
+      const modal=$("#"+id);
+      modal.classList.add("open");
+      const focusable=$("button,input,textarea,select",modal);
+      if(focusable) focusable.focus();
+    }
+    function closeModal(id){ $("#"+id).classList.remove("open"); }
+
+    function toast(message){
+      const t=$("#toast");
+      t.textContent=message;
+      t.classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer=setTimeout(()=>t.classList.remove("show"),2200);
+    }
+
+    function setTheme(theme){
+      state.theme=theme;
+      document.documentElement.dataset.theme=theme;
+      $("#themeBtn").textContent=theme==="dark"?"☀️ Theme":"🌙 Theme";
+      saveState();
+    }
+
+    function loadProfileForm(){
+      const f=$("#profileForm");
+      f.reset();
+      Object.entries(state.profile||{}).forEach(([key,value])=>{
+        if(f.elements[key]) f.elements[key].value=value||"";
+      });
+    }
+
+    function buildExportTree(){
+      const tree=$("#exportTree");
+      tree.innerHTML=orderedTopics().map(topic=>`
+        <div class="export-topic">
+          <div class="export-topic-head">
+            <label class="export-check"><input type="checkbox" class="export-topic-check" data-topic="${topic.id}"> <strong>${topic.icon} ${esc(topic.title)}</strong></label>
+            <button class="btn small toggle-export-sections" data-topic="${topic.id}" type="button">Sections</button>
+          </div>
+          <div class="export-sections" data-export-sections="${topic.id}" hidden>
+            ${topic.sections.map((section,si)=>`
+              <label class="export-check">
+                <input type="checkbox" class="export-section-check" data-topic="${topic.id}" data-section="${si}">
+                ${si+1}. ${esc(section.title)}
+              </label>`).join("")}
+          </div>
+        </div>`).join("");
+
+      $$(".export-topic-check",tree).forEach(input=>{
+        input.addEventListener("change",e=>{
+          $$(`.export-section-check[data-topic="${e.target.dataset.topic}"]`,tree).forEach(s=>s.checked=e.target.checked);
+        });
+      });
+      $$(".export-section-check",tree).forEach(input=>{
+        input.addEventListener("change",e=>{
+          const tid=e.target.dataset.topic;
+          const all=$$(`.export-section-check[data-topic="${tid}"]`,tree);
+          $(`.export-topic-check[data-topic="${tid}"]`,tree).checked=all.some(x=>x.checked);
+        });
+      });
+      $$(".toggle-export-sections",tree).forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          const section=$(`[data-export-sections="${btn.dataset.topic}"]`,tree);
+          section.hidden=!section.hidden;
+        });
+      });
+    }
+
+    function getSelectedExport(){
+      const selection={};
+      $$(".export-section-check:checked").forEach(cb=>{
+        if(!selection[cb.dataset.topic]) selection[cb.dataset.topic]=[];
+        selection[cb.dataset.topic].push(Number(cb.dataset.section));
+      });
+      return selection;
+    }
+
+    function profileHtml(){
+      const p=state.profile||{};
+      const rows=[
+        ["Student",p.studentName],
+        ["Blood type",p.bloodType],
+        ["Boarding address / landmark",p.boardingAddress],
+        ["Parent/guardian",p.parentContact],
+        ["Landlord/manager",p.landlordContact],
+        ["School clinic/security",p.schoolContact],
+        ["Barangay/LGU responder",p.barangayContact],
+        ["Medical information",p.medicalInfo],
+        ["Meeting point",p.meetingPoint]
+      ].filter(([,v])=>String(v||"").trim());
+      if(!rows.length) return "<p>No emergency profile information saved.</p>";
+      return `<table>${rows.map(([k,v])=>`<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>`;
+    }
+
+    function createPrintDocument(selection,options={}){
+      const includeNotes=options.includeNotes;
+      const includeStatus=options.includeStatus;
+      const checkedOnly=options.checkedOnly;
+      const selectedTopics=orderedTopics().filter(t=>selection[t.id]?.length);
+
+      const topicHtml=selectedTopics.map(topic=>{
+        const sections=selection[topic.id].map(si=>{
+          const s=topic.sections[si];
+          if(!s) return "";
+          const listFor=(type,items=[])=>{
+            const rendered=items.map((item,ii)=>{
+              const key=itemKey(topic.id,si,type,ii);
+              const checked=!!state.checks[key];
+              if(checkedOnly && !checked) return "";
+              const marker=includeStatus ? (checked?"☑":"☐") : "•";
+              return `<li>${marker} ${esc(item)}</li>`;
+            }).filter(Boolean).join("");
+            if(!rendered) return "";
+            return `<h4>${type==="dos"?"Do":"Don’t"}</h4><ul>${rendered}</ul>`;
+          };
+          return `<section>
+            <h3>${si+1}. ${esc(s.title)}</h3>
+            ${s.intro?`<p>${esc(s.intro)}</p>`:""}
+            ${s.numbered?.length?`<ol>${s.numbered.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}
+            ${listFor("dos",s.dos)}
+            ${listFor("donts",s.donts)}
+          </section>`;
+        }).join("");
+        const notes=includeNotes && String(state.notes[topic.id]||"").trim()
+          ? `<div class="notes"><strong>My notes:</strong><br>${esc(state.notes[topic.id]).replace(/\n/g,"<br>")}</div>`:"";
+        return `<article class="topic">
+          <h2>${topic.icon} ${esc(topic.title)}</h2>
+          <p class="intro">${esc(topic.intro)}</p>
+          ${topic.alert?`<div class="alert"><strong>Important:</strong> ${esc(topic.alert)}</div>`:""}
+          ${sections}${notes}
+        </article>`;
+      }).join("");
+
+      const profile=options.includeProfile?`<article class="topic"><h2>My Emergency and Student Plan</h2>${profileHtml()}</article>`:"";
+
+      return `<!doctype html><html><head><meta charset="utf-8"><title>Student Away Guide PH - Selected Guide</title>
+      <style>
+        @page{size:A4;margin:15mm}
+        body{font:11pt Arial,sans-serif;color:#172b29;line-height:1.45;margin:0}
+        h1{font-size:22pt;color:#0f766e;border-bottom:3px solid #0f766e;padding-bottom:8px}
+        h2{font-size:17pt;color:#0f766e;margin-top:24px;page-break-after:avoid}
+        h3{font-size:13pt;margin:18px 0 7px;page-break-after:avoid}
+        h4{font-size:10.5pt;text-transform:uppercase;letter-spacing:.05em;margin:10px 0 4px;color:#334e4b}
+        .topic{page-break-before:auto}.topic+.topic{page-break-before:always}
+        section{break-inside:avoid-page}
+        .intro{color:#435c59}.alert{border:1px solid #dc2626;background:#fff1f2;padding:9px;margin:8px 0}
+        ul,ol{margin-top:4px;padding-left:24px}li{margin:3px 0}
+        .notes{border:1px solid #94a3b8;background:#f8fafc;padding:10px;margin-top:14px}
+        table{border-collapse:collapse;width:100%}th,td{border:1px solid #cbd5e1;padding:7px;text-align:left;vertical-align:top}th{width:34%;background:#f1f5f9}
+        .meta{color:#64748b;font-size:9pt;margin-bottom:18px}
+        .print-note{padding:9px;background:#ecfeff;border:1px solid #a5f3fc;margin-bottom:14px}
+        @media print{.print-note{display:none}}
+      </style></head><body>
+        <div class="print-note">Use your browser’s Print command, then choose <strong>Save as PDF</strong> or a printer.</div>
+        <h1>Student Away Guide PH</h1>
+        <div class="meta">Selected personal guide • Generated ${new Date().toLocaleString()}</div>
+        ${profile}${topicHtml}
+        <p style="margin-top:28px;border-top:1px solid #ccc;padding-top:8px;font-size:9pt;color:#64748b">
+          Personal reference only. Follow current instructions from your school, LGU, boarding-house management and emergency responders. In a life-threatening emergency in the Philippines, call Unified 911 when safe.
+        </p>
+      </body></html>`;
+    }
+
+    function openPrint(html){
+      const w=window.open("","_blank");
+      if(!w){ toast("Pop-up blocked. Allow pop-ups for printing."); return; }
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+      setTimeout(()=>{ w.focus(); w.print(); },350);
+    }
+
+    function printCurrentTopic(){
+      if(!currentTopicId) return;
+      const topic=topicById(currentTopicId);
+      const selection={ [currentTopicId]: topic.sections.map((_,i)=>i) };
+      openPrint(createPrintDocument(selection,{includeNotes:true,includeStatus:true,checkedOnly:false,includeProfile:false}));
+    }
+
+    function downloadBackup(){
+      const payload={
+        app:"Student Away Guide PH",
+        version:APP_VERSION,
+        exportedAt:new Date().toISOString(),
+        state
+      };
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      const date=new Date().toISOString().slice(0,10);
+      a.href=url;a.download=`student-away-guide-backup-${date}.json`;
+      document.body.appendChild(a);a.click();a.remove();
+      URL.revokeObjectURL(url);
+      toast("Backup downloaded.");
+    }
+
+    function importBackup(file){
+      const reader=new FileReader();
+      reader.onload=()=>{
+        try{
+          const data=JSON.parse(reader.result);
+          const incoming=data.state || data;
+          if(!incoming || typeof incoming!=="object" || !incoming.checks || !incoming.order){
+            throw new Error("Invalid backup structure");
+          }
+          const validIds=new Set(TOPICS.map(t=>t.id));
+          const order=incoming.order.filter(id=>validIds.has(id));
+          TOPICS.forEach(t=>{if(!order.includes(t.id))order.push(t.id)});
+          state={
+            ...structuredCloneSafe(DEFAULT_STATE),
+            ...incoming,
+            order,
+            checks:incoming.checks||{},
+            reviewed:incoming.reviewed||{},
+            notes:incoming.notes||{},
+            profile:incoming.profile||{}
+          };
+          saveState();
+          setTheme(state.theme==="dark"?"dark":"light");
+          loadProfileForm();
+          renderCards();
+          closeModal("backupModal");
+          toast("Backup imported successfully.");
+        }catch(err){
+          toast("Import failed: this is not a valid guide backup.");
+        }finally{
+          $("#importFile").value="";
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetData(){
+      if(!confirm("Reset checklist progress, notes, order, profile and theme? This cannot be undone unless you have a backup.")) return;
+      state=structuredCloneSafe(DEFAULT_STATE);
+      localStorage.removeItem(STORAGE_KEY);
+      saveState();
+      setTheme("light");
+      loadProfileForm();
+      renderCards();
+      closeModal("backupModal");
+      toast("Saved data reset.");
+    }
+
+    // Event wiring
+    $("#footerYear").textContent=new Date().getFullYear();
+    $("#searchInput").addEventListener("input",renderCards);
+    $("#arrangeBtn").addEventListener("click",()=>{
+      arrangeMode=!arrangeMode;
+      $("#arrangeBtn").textContent=arrangeMode?"✓ Done arranging":"↕ Arrange";
+      renderCards();
+      toast(arrangeMode?"Use arrows or drag cards to reorder.":"Priority order saved.");
+    });
+    $("#closeTopicBtn").addEventListener("click",closeTopic);
+    $("#printCurrentBtn").addEventListener("click",printCurrentTopic);
+    $("#profileBtn").addEventListener("click",()=>openModal("profileModal"));
+    $("#backupBtn").addEventListener("click",()=>openModal("backupModal"));
+    $("#exportBtn").addEventListener("click",()=>{buildExportTree();openModal("exportModal")});
+    $("#themeBtn").addEventListener("click",()=>setTheme(state.theme==="dark"?"light":"dark"));
+
+    $$("[data-open-topic]").forEach(btn=>btn.addEventListener("click",()=>openTopic(btn.dataset.openTopic)));
+    $$("[data-close-modal]").forEach(btn=>btn.addEventListener("click",()=>closeModal(btn.dataset.closeModal)));
+    $$(".modal-backdrop").forEach(backdrop=>backdrop.addEventListener("click",e=>{
+      if(e.target===backdrop) closeModal(backdrop.id);
+    }));
+
+    $("#profileForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      state.profile=Object.fromEntries(new FormData(e.target).entries());
+      saveState(); closeModal("profileModal"); toast("Emergency plan saved.");
+    });
+
+    $("#downloadBackupBtn").addEventListener("click",downloadBackup);
+    $("#chooseImportBtn").addEventListener("click",()=>$("#importFile").click());
+    $("#importFile").addEventListener("change",e=>{if(e.target.files[0])importBackup(e.target.files[0])});
+    $("#resetDataBtn").addEventListener("click",resetData);
+
+    $("#selectAllExport").addEventListener("click",()=>{
+      $$(".export-topic-check,.export-section-check").forEach(cb=>cb.checked=true);
+    });
+    $("#clearAllExport").addEventListener("click",()=>{
+      $$(".export-topic-check,.export-section-check").forEach(cb=>cb.checked=false);
+    });
+    $("#generatePrintBtn").addEventListener("click",()=>{
+      const selection=getSelectedExport();
+      if(!Object.keys(selection).length){toast("Select at least one section to print.");return}
+      const html=createPrintDocument(selection,{
+        includeProfile:$("#includeProfilePrint").checked,
+        includeNotes:$("#includeNotesPrint").checked,
+        includeStatus:$("#includeStatusPrint").checked,
+        checkedOnly:$("#checkedOnlyPrint").checked
+      });
+      openPrint(html);
+    });
+
+    document.addEventListener("keydown",e=>{
+      if(e.key==="Escape"){
+        if($("#topicPage").classList.contains("open")) closeTopic();
+        $$(".modal-backdrop.open").forEach(m=>closeModal(m.id));
+      }
+    });
+
+    // Initial render
+    document.documentElement.dataset.theme=state.theme==="dark"?"dark":"light";
+    $("#themeBtn").textContent=state.theme==="dark"?"☀️ Theme":"🌙 Theme";
+    loadProfileForm();
+    renderCards();
+    updateProgress();
+  </script>
+</body>
+</html>

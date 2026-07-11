@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0f766e" />
   <title>Student Away Guide PH</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Away Guide" />
+  <meta name="description" content="A practical offline safety, health, study, food, budgeting and independent-living guide for college students staying away from family." />
   <style>
     :root{
       --bg:#f3f7f6;
@@ -351,6 +359,7 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="icon-btn" id="installBtn" title="Install app" hidden>⬇️ Install App</button>
         <button class="icon-btn" id="profileBtn" title="Emergency profile">🪪 My Plan</button>
         <button class="icon-btn" id="backupBtn" title="Backup and restore">💾 Backup</button>
         <button class="icon-btn" id="themeBtn" title="Switch appearance">🌙 Theme</button>
@@ -1982,6 +1991,43 @@
     loadProfileForm();
     renderCards();
     updateProgress();
+
+    // ---- PWA: service worker registration + install prompt ----
+    if("serviceWorker" in navigator){
+      window.addEventListener("load",()=>{
+        navigator.serviceWorker.register("sw.js").catch(err=>{
+          console.warn("Service worker registration failed:",err);
+        });
+      });
+    }
+
+    let deferredInstallPrompt=null;
+    const installBtn=$("#installBtn");
+
+    window.addEventListener("beforeinstallprompt",(e)=>{
+      e.preventDefault();
+      deferredInstallPrompt=e;
+      if(installBtn) installBtn.hidden=false;
+    });
+
+    if(installBtn){
+      installBtn.addEventListener("click",async()=>{
+        if(!deferredInstallPrompt) return;
+        installBtn.hidden=true;
+        deferredInstallPrompt.prompt();
+        const {outcome}=await deferredInstallPrompt.userChoice;
+        if(outcome!=="accepted"){
+          installBtn.hidden=false;
+        }
+        deferredInstallPrompt=null;
+      });
+    }
+
+    window.addEventListener("appinstalled",()=>{
+      if(installBtn) installBtn.hidden=true;
+      deferredInstallPrompt=null;
+      toast("Installed! You can now open Away Guide from your home screen.");
+    });
   </script>
 </body>
 </html>
